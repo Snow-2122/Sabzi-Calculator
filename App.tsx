@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { CalculationMode } from './types';
 
@@ -66,7 +67,10 @@ interface ReferencePriceInputProps {
   }
 }
 
-const ReferencePriceInput: React.FC<ReferencePriceInputProps> = ({ price, onPriceChange, quantity, onQuantityChange, unit, onUnitChange, errors = {} }) => (
+// FIX: Removed `errors = {}` default value and used optional chaining (`?.`) to safely access error properties.
+// The `errors` prop is optional, so it can be undefined. `errors = {}` caused TypeScript to infer the type as an empty object `{}`,
+// which doesn't have `price` or `quantity` properties.
+const ReferencePriceInput: React.FC<ReferencePriceInputProps> = ({ price, onPriceChange, quantity, onQuantityChange, unit, onUnitChange, errors }) => (
     <div>
         <label className="block text-sm font-medium text-gray-400 mb-1">Item Price</label>
         <div className="flex items-start space-x-2">
@@ -83,17 +87,17 @@ const ReferencePriceInput: React.FC<ReferencePriceInputProps> = ({ price, onPric
                         min="0"
                         step="any"
                         className={`block w-full rounded-md border pl-10 pr-4 py-2 sm:text-sm bg-gray-900/50 text-gray-200 placeholder-gray-500 ${
-                            errors.price 
+                            errors?.price 
                             ? 'border-red-500 focus:border-red-500 focus:ring-red-500' 
                             : 'border-gray-700 focus:border-[hsl(189,92%,58%)] focus:ring-[hsl(189,92%,58%)]'
                         }`}
                         aria-label="Price"
                         autoComplete="off"
-                        aria-invalid={!!errors.price}
-                        aria-describedby={errors.price ? `ref-price-error` : undefined}
+                        aria-invalid={!!errors?.price}
+                        aria-describedby={errors?.price ? `ref-price-error` : undefined}
                     />
                 </div>
-                 {errors.price && <p id="ref-price-error" className="mt-1 text-xs text-red-500">{errors.price}</p>}
+                 {errors?.price && <p id="ref-price-error" className="mt-1 text-xs text-red-500">{errors.price}</p>}
             </div>
 
             <span className="text-gray-400 font-medium pt-2">for</span>
@@ -108,17 +112,17 @@ const ReferencePriceInput: React.FC<ReferencePriceInputProps> = ({ price, onPric
                         min="0"
                         step="any"
                         className={`block w-full rounded-md border px-4 py-2 sm:text-sm bg-gray-900/50 text-gray-200 placeholder-gray-500 ${
-                            errors.quantity 
+                            errors?.quantity 
                             ? 'border-red-500 focus:border-red-500 focus:ring-red-500' 
                             : 'border-gray-700 focus:border-[hsl(189,92%,58%)] focus:ring-[hsl(189,92%,58%)]'
                         }`}
                         aria-label="Reference Quantity"
                         autoComplete="off"
-                        aria-invalid={!!errors.quantity}
-                        aria-describedby={errors.quantity ? `ref-quantity-error` : undefined}
+                        aria-invalid={!!errors?.quantity}
+                        aria-describedby={errors?.quantity ? `ref-quantity-error` : undefined}
                     />
                 </div>
-                {errors.quantity && <p id="ref-quantity-error" className="mt-1 text-xs text-red-500">{errors.quantity}</p>}
+                {errors?.quantity && <p id="ref-quantity-error" className="mt-1 text-xs text-red-500">{errors.quantity}</p>}
             </div>
             
             <div>
