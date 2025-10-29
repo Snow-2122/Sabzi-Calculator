@@ -63,19 +63,6 @@ Follow these steps to set up a proper development environment and run the app on
 
 - Go back to the terminal window where the server is running and press `Ctrl+C`.
 
-## 🤖 AI Integration Status
-
-**This application, in its current version, does not use any AI features or the Google Gemini API.**
-
-The calculation logic is performed entirely on the client-side using standard mathematical operations. Therefore, **no API key is required** to run or use the app. It is a standalone utility tool.
-
-### Future AI Possibilities
-
-While the current build is not AI-powered, future versions could incorporate Gemini to enhance functionality, such as:
-- Fetching real-time market prices for items.
-- Providing recipe suggestions based on your shopping list.
-- Allowing users to input their requests using natural language.
-
 ## 💻 Technology Stack
 
 - **React**: For building the user interface.
