@@ -8,6 +8,6 @@ export const COMMON_ITEMS: CommonItem[] = [
   { name: 'Chicken', refQuantity: 1, refUnit: 'kg' },
   { name: 'Mutton', refQuantity: 1, refUnit: 'kg' },
   { name: 'Paneer', refQuantity: 250, refUnit: 'g' },
-  { name: 'Sweets', refQuantity: 250, refUnit: 'g' },
+  { name: 'Sweets', refQuantity: 100, refUnit: 'g' },
   { name: 'Milk', refQuantity: 500, refUnit: 'ml' },
 ];
