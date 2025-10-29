@@ -25,98 +25,44 @@ Here's a glimpse of the Sabzi Calculator in action, featuring the helpful Quick 
 
 ## 🚀 How to Run the Application
 
-This is a frontend-only application built with React and TypeScript. You don't need a complex build process to run it, just a simple local web server. Below are detailed instructions for Windows and Linux users, especially for those using Visual Studio Code.
+This project is built with React and TypeScript and uses **Vite** as its development server. The previous methods using static servers (like VS Code's Live Server or Python's server) will not work because they cannot process the TypeScript (`.tsx`) files that browsers don't understand.
+
+Follow these steps to set up a proper development environment and run the app on any system (Windows, macOS, Linux).
 
 ### Prerequisites
 
-- A modern web browser (like Chrome, Firefox, or Edge).
-- **(Optional, but recommended)** [Visual Studio Code](https://code.visualstudio.com/download) as your code editor.
-- One of the following for serving the files:
-    - The [Live Server extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) for VS Code.
-    - [Node.js](https://nodejs.org/) (which includes `npm`).
-    - [Python](https://www.python.org/downloads/) installed on your system.
+1.  **[Node.js](https://nodejs.org/en/download/)**: You **must** have Node.js installed. Version 18 or newer is recommended. This installation also includes `npm` (Node Package Manager), which is required to manage project dependencies.
+2.  **A Code Editor**: [Visual Studio Code](https://code.visualstudio.com/download) is highly recommended.
+3.  **A Terminal**: You can use the integrated terminal in VS Code (`Ctrl+\`` or `View > Terminal`) or your system's default terminal (Command Prompt, PowerShell, or Git Bash on Windows).
 
 ### Step-by-Step Guide
 
-#### 1. Get the Code
+1.  **Open the Project Folder**:
+    - Unzip the project files into a folder on your computer.
+    - Open this folder in Visual Studio Code (`File > Open Folder...`).
 
-First, you need to have the project files on your computer. If this were a project on GitHub, you would clone it. For this environment, you already have the files.
-
-#### 2. Open the Project in VS Code
-
-1.  Open Visual Studio Code.
-2.  Go to `File > Open Folder...` and select the root directory of this project (the folder containing `index.html`).
-
-#### 3. Start a Local Server
-
-You need a local server to view the app correctly in your browser. Here are three easy methods:
-
----
-
-#### Method 1: VS Code Live Server Extension (Easiest)
-
-This is the recommended method for beginners using VS Code.
-
-1.  **Install the Extension**:
-    - In VS Code, go to the **Extensions** view (click the icon with four squares on the sidebar or press `Ctrl+Shift+X`).
-    - Search for `Live Server` by Ritwick Dey.
-    - Click **Install**.
-
-2.  **Start the Server**:
-    - Once installed, open the `index.html` file in the editor.
-    - Right-click anywhere in the `index.html` file and select **"Open with Live Server"**.
-    - Alternatively, click the **"Go Live"** button in the bottom-right corner of the VS Code status bar.
-
-3.  Your browser will automatically open with the application running, usually at an address like `http://127.0.0.1:5500`.
-
----
-
-#### Method 2: Using Node.js (Cross-Platform)
-
-If you have Node.js installed, you can use the lightweight `serve` package.
-
-1.  **Install `serve`**:
-    - Open the integrated terminal in VS Code (`View > Terminal` or `Ctrl+\``).
-    - Run the following command to install `serve` globally on your machine:
+2.  **Install Dependencies**:
+    - Open the integrated terminal in VS Code.
+    - In the terminal, run the following command. This will read the `package.json` file and download all the necessary libraries (like React and Vite) into a `node_modules` folder.
       ```bash
-      npm install -g serve
+      npm install
+      ```
+    - This step only needs to be done once.
+
+3.  **Start the Development Server**:
+    - After the installation is complete, run this command in the same terminal:
+      ```bash
+      npm run dev
       ```
 
-2.  **Start the Server**:
-    - In the same terminal, ensure you are in the project's root directory.
-    - Run the command:
-      ```bash
-      serve .
-      ```
-    - The terminal will give you a local URL, typically `http://localhost:3000`.
+4.  **View the Application**:
+    - The terminal will display a message indicating that the server is running, along with a local URL, typically `http://localhost:5173/`.
+    - `Ctrl+click` the link in the terminal, or copy and paste it into your web browser.
+    - The application should now be running! The Vite server also provides **Hot Module Replacement (HMR)**, meaning any changes you save to the code will instantly update in the browser without needing a full refresh.
 
-3.  **Access the App**:
-    - `Ctrl+click` the link in the terminal or copy-paste it into your browser's address bar.
+### To Stop the Server
 
----
-
-#### Method 3: Using Python (Cross-Platform)
-
-Python is often pre-installed on Linux and macOS, and is easy to install on Windows.
-
-1.  **Start the Server**:
-    - Open the integrated terminal in VS Code (`View > Terminal` or `Ctrl+\``).
-    - Ensure you are in the project's root directory.
-    - Run the command for your Python version:
-
-    **For Python 3:**
-    ```bash
-    python -m http.server
-    ```
-    *This is the most common command for modern systems.*
-
-    **For Python 2:**
-    ```bash
-    python -m SimpleHTTPServer
-    ```
-
-2.  **Access the App**:
-    - The server will start, usually on `http://localhost:8000`. Open this URL in your browser to see the app.
+- Go back to the terminal window where the server is running and press `Ctrl+C`.
 
 ## 🤖 AI Integration Status
 
@@ -135,8 +81,8 @@ While the current build is not AI-powered, future versions could incorporate Gem
 
 - **React**: For building the user interface.
 - **TypeScript**: For type-safe JavaScript.
+- **Vite**: For the local development server and build tooling.
 - **Tailwind CSS**: For styling (included via CDN).
-- **esbuild**: The development environment uses esbuild to bundle the code on the fly.
 
 ---
 
