@@ -14,6 +14,12 @@ const ShoppingBasketIcon: React.FC<{ className?: string }> = ({ className }) => 
     </svg>
 );
 
+const InfoIcon: React.FC<{ className?: string }> = ({ className }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+    </svg>
+);
+
 const Tooltip: React.FC<{ text: string; children: React.ReactNode }> = ({ text, children }) => (
   <div className="relative group">
     {children}
@@ -60,10 +66,10 @@ const InputGroup: React.FC<InputGroupProps> = ({ label, id, value, onChange, pla
         placeholder={placeholder}
         min="0"
         step="any"
-        className={`block w-full rounded-md border pl-10 pr-4 py-2 sm:text-sm bg-gray-900/50 text-gray-200 placeholder-gray-500 ${
+        className={`block w-full rounded-md border pl-10 pr-4 py-2 sm:text-sm bg-gray-900/50 text-gray-200 placeholder-gray-500 transition-all duration-300 ease-in-out ${
             error 
-            ? 'border-red-500 focus:border-red-500 focus:ring-red-500' 
-            : 'border-gray-700 focus:border-[hsl(189,92%,58%)] focus:ring-[hsl(189,92%,58%)]'
+            ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/50 animate-shake' 
+            : 'border-gray-700 focus:border-[hsl(189,92%,58%)] focus:ring-2 focus:ring-[hsl(189,92%,58%)]/50'
         }`}
         autoComplete="off"
         aria-invalid={!!error}
@@ -93,7 +99,7 @@ const ReferencePriceInput: React.FC<ReferencePriceInputProps> = ({ price, onPric
         <Tooltip text="Enter the market price for a standard amount (e.g., ₹50 for 1 kg).">
             <label className="block text-sm font-medium text-gray-400 mb-1 border-b border-dotted border-gray-500 cursor-help w-max">Item Price</label>
         </Tooltip>
-        <div className="flex items-start space-x-2">
+        <div className="flex items-center space-x-2">
             <div className="relative flex-grow">
                 <div className="relative rounded-md shadow-sm">
                     <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -107,10 +113,10 @@ const ReferencePriceInput: React.FC<ReferencePriceInputProps> = ({ price, onPric
                         placeholder="e.g., 25"
                         min="0"
                         step="any"
-                        className={`block w-full rounded-md border pl-10 pr-4 py-2 sm:text-sm bg-gray-900/50 text-gray-200 placeholder-gray-500 ${
+                        className={`block w-full rounded-md border pl-10 pr-4 py-2 sm:text-sm bg-gray-900/50 text-gray-200 placeholder-gray-500 transition-all duration-300 ease-in-out ${
                             errors?.price 
-                            ? 'border-red-500 focus:border-red-500 focus:ring-red-500' 
-                            : 'border-gray-700 focus:border-[hsl(189,92%,58%)] focus:ring-[hsl(189,92%,58%)]'
+                            ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/50 animate-shake' 
+                            : 'border-gray-700 focus:border-[hsl(189,92%,58%)] focus:ring-2 focus:ring-[hsl(189,92%,58%)]/50'
                         }`}
                         aria-label="Price"
                         autoComplete="off"
@@ -121,7 +127,7 @@ const ReferencePriceInput: React.FC<ReferencePriceInputProps> = ({ price, onPric
                  {errors?.price && <p id="ref-price-error" className="mt-1 text-xs text-red-500">{errors.price}</p>}
             </div>
 
-            <span className="text-gray-400 font-medium pt-2">for</span>
+            <span className="text-gray-400 font-medium">for</span>
 
             <div className="relative flex-grow">
                 <div className="relative rounded-md shadow-sm">
@@ -132,10 +138,10 @@ const ReferencePriceInput: React.FC<ReferencePriceInputProps> = ({ price, onPric
                         placeholder="e.g., 100"
                         min="0"
                         step="any"
-                        className={`block w-full rounded-md border px-4 py-2 sm:text-sm bg-gray-900/50 text-gray-200 placeholder-gray-500 ${
+                        className={`block w-full rounded-md border px-4 py-2 sm:text-sm bg-gray-900/50 text-gray-200 placeholder-gray-500 transition-all duration-300 ease-in-out ${
                             errors?.quantity 
-                            ? 'border-red-500 focus:border-red-500 focus:ring-red-500' 
-                            : 'border-gray-700 focus:border-[hsl(189,92%,58%)] focus:ring-[hsl(189,92%,58%)]'
+                            ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/50 animate-shake' 
+                            : 'border-gray-700 focus:border-[hsl(189,92%,58%)] focus:ring-2 focus:ring-[hsl(189,92%,58%)]/50'
                         }`}
                         aria-label="Reference Quantity"
                         autoComplete="off"
@@ -146,11 +152,11 @@ const ReferencePriceInput: React.FC<ReferencePriceInputProps> = ({ price, onPric
                 {errors?.quantity && <p id="ref-quantity-error" className="mt-1 text-xs text-red-500">{errors.quantity}</p>}
             </div>
             
-            <div>
+            <div className="flex items-center space-x-1">
                 <select
                     value={unit}
                     onChange={onUnitChange}
-                    className="rounded-md border border-gray-700 bg-gray-900/50 text-gray-200 shadow-sm focus:border-[hsl(189,92%,58%)] focus:ring-[hsl(189,92%,58%)] sm:text-sm h-full py-2"
+                    className="rounded-md border border-gray-700 bg-gray-900/50 text-gray-200 shadow-sm focus:border-[hsl(189,92%,58%)] focus:ring-2 focus:ring-[hsl(189,92%,58%)]/50 sm:text-sm h-full py-[7px] transition-all duration-300 ease-in-out"
                     aria-label="Reference unit"
                 >
                     <option value="g">g</option>
@@ -158,6 +164,9 @@ const ReferencePriceInput: React.FC<ReferencePriceInputProps> = ({ price, onPric
                     <option value="ml">ml</option>
                     <option value="L">L</option>
                 </select>
+                <Tooltip text="1000g = 1kg | 1000ml = 1L. Conversions are handled automatically.">
+                    <InfoIcon className="w-5 h-5 text-gray-500 cursor-help" />
+                </Tooltip>
             </div>
         </div>
     </div>
@@ -406,8 +415,8 @@ const App: React.FC = () => {
                   <Tooltip text="Enter the weight or volume of the item you want to buy.">
                      <label htmlFor="quantity" className="block text-sm font-medium text-gray-400 mb-1 border-b border-dotted border-gray-500 cursor-help w-max">Desired Quantity</label>
                   </Tooltip>
-                  <div className="flex space-x-2">
-                      <div className="relative flex-grow">
+                  <div className="flex items-center space-x-2">
+                      <div className="flex-grow">
                           <div className="relative rounded-md shadow-sm">
                               <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-500">
@@ -423,10 +432,10 @@ const App: React.FC = () => {
                                   placeholder="e.g., 250"
                                   min="0"
                                   step="any"
-                                  className={`block w-full rounded-md border pl-10 pr-4 py-2 sm:text-sm bg-gray-900/50 text-gray-200 placeholder-gray-500 ${
+                                  className={`block w-full rounded-md border pl-10 pr-4 py-2 sm:text-sm bg-gray-900/50 text-gray-200 placeholder-gray-500 transition-all duration-300 ease-in-out ${
                                       errors.quantity 
-                                      ? 'border-red-500 focus:border-red-500 focus:ring-red-500' 
-                                      : 'border-gray-700 focus:border-[hsl(189,92%,58%)] focus:ring-[hsl(189,92%,58%)]'
+                                      ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/50 animate-shake' 
+                                      : 'border-gray-700 focus:border-[hsl(189,92%,58%)] focus:ring-2 focus:ring-[hsl(189,92%,58%)]/50'
                                   }`}
                                   autoComplete="off"
                                   aria-invalid={!!errors.quantity}
@@ -435,7 +444,7 @@ const App: React.FC = () => {
                           </div>
                           {errors.quantity && <p id="quantity-error" className="mt-1 text-xs text-red-500">{errors.quantity}</p>}
                       </div>
-                    <div className="flex rounded-md shadow-sm self-start">
+                    <div className="flex rounded-md shadow-sm">
                       { isVolume ? (
                           <>
                               <button
@@ -467,6 +476,11 @@ const App: React.FC = () => {
                               </button>
                           </>
                       )}
+                    </div>
+                     <div>
+                        <Tooltip text="1000g = 1kg | 1000ml = 1L. Conversions are handled automatically.">
+                            <InfoIcon className="w-5 h-5 text-gray-500 cursor-help" />
+                        </Tooltip>
                     </div>
                   </div>
                 </div>
