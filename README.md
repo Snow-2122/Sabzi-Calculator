@@ -25,27 +25,98 @@ Here's a glimpse of the Sabzi Calculator in action, featuring the helpful Quick 
 
 ## 🚀 How to Run the Application
 
-This is a frontend-only application built with React and TypeScript, served directly from an `index.html` file. You do not need a complex build process to run it.
+This is a frontend-only application built with React and TypeScript. You don't need a complex build process to run it, just a simple local web server. Below are detailed instructions for Windows and Linux users, especially for those using Visual Studio Code.
 
-1.  **Prerequisites**: You need a simple local web server. If you have Python or Node.js installed, you're all set.
+### Prerequisites
 
-2.  **Serve the files**:
-    - Open your terminal in the root directory of this project (where `index.html` is located).
-    - Choose one of the following commands to start a local server:
+- A modern web browser (like Chrome, Firefox, or Edge).
+- **(Optional, but recommended)** [Visual Studio Code](https://code.visualstudio.com/download) as your code editor.
+- One of the following for serving the files:
+    - The [Live Server extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) for VS Code.
+    - [Node.js](https://nodejs.org/) (which includes `npm`).
+    - [Python](https://www.python.org/downloads/) installed on your system.
 
-    **Using Node.js (with `serve`)**
-    If you don't have `serve` installed, run `npm install -g serve` first.
-    ```bash
-    serve .
-    ```
+### Step-by-Step Guide
 
-    **Using Python 3**
+#### 1. Get the Code
+
+First, you need to have the project files on your computer. If this were a project on GitHub, you would clone it. For this environment, you already have the files.
+
+#### 2. Open the Project in VS Code
+
+1.  Open Visual Studio Code.
+2.  Go to `File > Open Folder...` and select the root directory of this project (the folder containing `index.html`).
+
+#### 3. Start a Local Server
+
+You need a local server to view the app correctly in your browser. Here are three easy methods:
+
+---
+
+#### Method 1: VS Code Live Server Extension (Easiest)
+
+This is the recommended method for beginners using VS Code.
+
+1.  **Install the Extension**:
+    - In VS Code, go to the **Extensions** view (click the icon with four squares on the sidebar or press `Ctrl+Shift+X`).
+    - Search for `Live Server` by Ritwick Dey.
+    - Click **Install**.
+
+2.  **Start the Server**:
+    - Once installed, open the `index.html` file in the editor.
+    - Right-click anywhere in the `index.html` file and select **"Open with Live Server"**.
+    - Alternatively, click the **"Go Live"** button in the bottom-right corner of the VS Code status bar.
+
+3.  Your browser will automatically open with the application running, usually at an address like `http://127.0.0.1:5500`.
+
+---
+
+#### Method 2: Using Node.js (Cross-Platform)
+
+If you have Node.js installed, you can use the lightweight `serve` package.
+
+1.  **Install `serve`**:
+    - Open the integrated terminal in VS Code (`View > Terminal` or `Ctrl+\``).
+    - Run the following command to install `serve` globally on your machine:
+      ```bash
+      npm install -g serve
+      ```
+
+2.  **Start the Server**:
+    - In the same terminal, ensure you are in the project's root directory.
+    - Run the command:
+      ```bash
+      serve .
+      ```
+    - The terminal will give you a local URL, typically `http://localhost:3000`.
+
+3.  **Access the App**:
+    - `Ctrl+click` the link in the terminal or copy-paste it into your browser's address bar.
+
+---
+
+#### Method 3: Using Python (Cross-Platform)
+
+Python is often pre-installed on Linux and macOS, and is easy to install on Windows.
+
+1.  **Start the Server**:
+    - Open the integrated terminal in VS Code (`View > Terminal` or `Ctrl+\``).
+    - Ensure you are in the project's root directory.
+    - Run the command for your Python version:
+
+    **For Python 3:**
     ```bash
     python -m http.server
     ```
+    *This is the most common command for modern systems.*
 
-3.  **Access the App**:
-    - Open your web browser and navigate to the local address provided by the server (usually `http://localhost:3000`, `http://localhost:5000`, or `http://localhost:8000`).
+    **For Python 2:**
+    ```bash
+    python -m SimpleHTTPServer
+    ```
+
+2.  **Access the App**:
+    - The server will start, usually on `http://localhost:8000`. Open this URL in your browser to see the app.
 
 ## 🤖 AI Integration Status
 
