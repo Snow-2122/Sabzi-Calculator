@@ -23,7 +23,58 @@ Here's a glimpse of the Sabzi Calculator in action, featuring the helpful Quick 
 | ![Screenshot of the app calculating quantity by a set budget](https://github.com/user-attachments/assets/477a67c4-b99a-4044-a37a-c107f3d81f32) | ![Screenshot of the app calculating total cost by a set quantity](https://github.com/user-attachments/assets/b5376a17-4cbc-4559-9778-ecbd7118b756) |
 
 
-## 🚀 How to Run the Application
+## 🚀 Live Deployment with GitHub Pages
+
+Follow these steps to deploy your application to a free, public URL using GitHub Pages.
+
+### Prerequisites
+
+*   You must have a GitHub account.
+*   Your project code must be pushed to a GitHub repository.
+
+### Deployment Steps
+
+1.  **Install `gh-pages` package**:
+    This is a one-time step. The `gh-pages` package helps you publish the contents of your `dist` folder (the build output) to GitHub. Run this command in your terminal:
+    ```bash
+    npm install gh-pages --save-dev
+    ```
+    *(This has already been added to your `package.json`, so an `npm install` will handle it, but it's good to know).*
+
+2.  **Push Your Code to GitHub**:
+    Make sure your latest code, including the `vite.config.ts` and `package.json` files from this update, is pushed to your GitHub repository.
+    ```bash
+    git add .
+    git commit -m "Configure for GitHub Pages deployment"
+    git push
+    ```
+
+3.  **Run the Deploy Command**:
+    Now for the magic. Run the following command in your terminal:
+    ```bash
+    npm run deploy
+    ```
+    This command will first run `npm run build` to create a production-ready version of your app, and then it will push the contents of the newly created `dist` folder to a special branch in your repository called `gh-pages`.
+
+4.  **Configure GitHub Pages in Your Repository**:
+    - Go to your repository on the GitHub website.
+    - Click on the **Settings** tab.
+    - In the left sidebar, click on **Pages**.
+    - Under "Build and deployment", for the **Source**, select **Deploy from a branch**.
+    - For the **Branch**, select `gh-pages` from the dropdown menu and make sure the folder is set to `/ (root)`. Click **Save**.
+
+    
+
+5.  **Access Your Live Site!**
+    - GitHub will now build and deploy your site. It may take a minute or two.
+    - Once it's ready, a green box will appear on the same settings page with your public URL. It will look something like this:
+      **`https://<your-github-username>.github.io/<your-repository-name>/`**
+
+    Now you have a permanent link that you can share with anyone!
+
+---
+
+## 💻 How to Run Locally
 
 This project is built with React and TypeScript and uses **Vite** as its development server. The previous methods using static servers (like VS Code's Live Server or Python's server) will not work because they cannot process the TypeScript (`.tsx`) files that browsers don't understand.
 
