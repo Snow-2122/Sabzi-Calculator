@@ -2,7 +2,7 @@
 
 A clean, responsive web app to help users calculate vegetable and meat costs. It can calculate the quantity you can afford for a given budget or the total cost for a desired quantity.
 
-![image alt](https://github.com/Snow-2122/Sabzi-Calculator/blob/cf58570d421c7c1ff234ee794f8ab2fbdfefdf06/images/Sabzi%20Calculator-1.jpg)
+![image alt](./image/Sabzi%20Calculator-1.jpg)
 
 ## ✨ Features
 
@@ -19,7 +19,7 @@ Here's a glimpse of the Sabzi Calculator in action:
 
 | Quantity by Budget | Cost by Quantity |
 | :---: | :---: |
-| ![image alt](./images/Sabzi Calculator-2.jpg) | ![image alt](./images/Sabzi Calculator-3.jpg) |
+| ![image alt](./image/Sabzi%20Calculator-2.jpg) | ![image alt](./image/Sabzi%20Calculator-3.jpg) |
 
 
 ## 🚀 How to Run the Application
