@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { CalculationMode } from './types';
+import { CalculationMode, Unit } from './types';
 
 const RupeeIcon: React.FC<{ className?: string }> = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
@@ -59,7 +59,7 @@ interface ReferencePriceInputProps {
   onPriceChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   quantity: string;
   onQuantityChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  unit: 'g' | 'kg' | 'ml' | 'L';
+  unit: Unit;
   onUnitChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   errors?: {
       price?: string | null;
@@ -143,14 +143,44 @@ const ReferencePriceInput: React.FC<ReferencePriceInputProps> = ({ price, onPric
 );
 
 
+/**
+ * Converts a value from a given unit to its base unit (grams or milliliters).
+ * @param value The numeric value to convert.
+ * @param unit The unit of the value.
+ * @returns The value in its base unit.
+ */
+const convertToBaseUnit = (value: number, unit: Unit): number => {
+    if (unit === 'kg' || unit === 'L') {
+        return value * 1000;
+    }
+    return value;
+};
+
+/**
+ * Formats a quantity in a base unit into a display object with main and secondary units.
+ * @param quantityInBaseUnit The quantity in grams or milliliters.
+ * @param isVolume A boolean indicating if the unit is for volume.
+ * @returns An object with formatted main and secondary quantity strings.
+ */
+const formatQuantity = (quantityInBaseUnit: number, isVolume: boolean): { main: string; secondary: string; } => {
+    const mainUnit = isVolume ? 'L' : 'kg';
+    const secondaryUnit = isVolume ? 'ml' : 'g';
+    const quantityInMainUnit = quantityInBaseUnit / 1000;
+
+    return {
+        main: `${quantityInMainUnit.toFixed(3)} ${mainUnit}`,
+        secondary: `(${quantityInBaseUnit.toFixed(0)} ${secondaryUnit})`,
+    };
+};
+
 const App: React.FC = () => {
   const [mode, setMode] = useState<CalculationMode>(CalculationMode.ByBudget);
   const [budget, setBudget] = useState<string>('');
   const [refPrice, setRefPrice] = useState<string>('');
   const [refQuantity, setRefQuantity] = useState<string>('');
-  const [refUnit, setRefUnit] = useState<'g' | 'kg' | 'ml' | 'L'>('g');
+  const [refUnit, setRefUnit] = useState<Unit>('g');
   const [quantity, setQuantity] = useState<string>('');
-  const [quantityUnit, setQuantityUnit] = useState<'g' | 'kg' | 'ml' | 'L'>('g');
+  const [quantityUnit, setQuantityUnit] = useState<Unit>('g');
   const [result, setResult] = useState<{
     cost?: string;
     quantity?: {
@@ -202,14 +232,9 @@ const App: React.FC = () => {
             return;
         }
 
-      // Normalize reference quantity to base units (g or ml)
-      let refQuantityInBaseUnit = refQuantityNum;
-      if (refUnit === 'kg' || refUnit === 'L') {
-        refQuantityInBaseUnit = refQuantityNum * 1000;
-      }
-
-      // Calculate price per base unit
+      const refQuantityInBaseUnit = convertToBaseUnit(refQuantityNum, refUnit);
       const normalizedPricePerBaseUnit = refPriceNum / refQuantityInBaseUnit;
+      
       if (!isFinite(normalizedPricePerBaseUnit)) {
           setResult(null);
           return;
@@ -221,34 +246,16 @@ const App: React.FC = () => {
         const budgetNum = parseFloat(budget);
         if (budgetNum > 0) {
           const quantityInBaseUnit = budgetNum / normalizedPricePerBaseUnit;
-          if (isVolumeCalculation) {
-            const quantityL = quantityInBaseUnit / 1000;
-            setResult({
-                quantity: {
-                    main: `${quantityL.toFixed(3)} L`,
-                    secondary: `(${quantityInBaseUnit.toFixed(0)} ml)`,
-                }
-            });
-          } else {
-            const quantityKg = quantityInBaseUnit / 1000;
-            setResult({
-                quantity: {
-                    main: `${quantityKg.toFixed(3)} kg`,
-                    secondary: `(${quantityInBaseUnit.toFixed(0)} g)`,
-                }
-            });
-          }
+          setResult({
+              quantity: formatQuantity(quantityInBaseUnit, isVolumeCalculation),
+          });
         } else {
           setResult(null);
         }
       } else { // ByQuantity mode
         const quantityNum = parseFloat(quantity);
         if (quantityNum > 0) {
-          let quantityInBaseUnit = quantityNum;
-          if (quantityUnit === 'kg' || quantityUnit === 'L') {
-            quantityInBaseUnit = quantityNum * 1000;
-          }
-
+          const quantityInBaseUnit = convertToBaseUnit(quantityNum, quantityUnit);
           const totalCost = quantityInBaseUnit * normalizedPricePerBaseUnit;
           setResult({ cost: totalCost.toFixed(2) });
         } else {
@@ -328,7 +335,7 @@ const App: React.FC = () => {
                   quantity={refQuantity}
                   onQuantityChange={(e) => setRefQuantity(e.target.value)}
                   unit={refUnit}
-                  onUnitChange={(e) => setRefUnit(e.target.value as 'g'|'kg'|'ml'|'L')}
+                  onUnitChange={(e) => setRefUnit(e.target.value as Unit)}
                   errors={{ price: errors.refPrice, quantity: errors.refQuantity }}
                 />
               </div>
@@ -406,7 +413,7 @@ const App: React.FC = () => {
                   quantity={refQuantity}
                   onQuantityChange={(e) => setRefQuantity(e.target.value)}
                   unit={refUnit}
-                  onUnitChange={(e) => setRefUnit(e.target.value as 'g'|'kg'|'ml'|'L')}
+                  onUnitChange={(e) => setRefUnit(e.target.value as Unit)}
                   errors={{ price: errors.refPrice, quantity: errors.refQuantity }}
                 />
               </div>
