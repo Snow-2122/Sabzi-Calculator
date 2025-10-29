@@ -11,6 +11,15 @@ A clean, responsive web app to help users calculate vegetable and meat costs. It
 - **Intuitive UI**: A modern, easy-to-use interface designed for quick calculations.
 - **Responsive Design**: Works seamlessly on both desktop and mobile devices.
 
+## 📸 Screenshots
+
+Here's a glimpse of the Sabzi Calculator in action:
+
+| Quantity by Budget | Cost by Quantity |
+| :---: | :---: |
+|  |  |
+
+
 ## 🚀 How to Run the Application
 
 This is a frontend-only application built with React and TypeScript, served directly from an `index.html` file. You do not need a complex build process to run it.
