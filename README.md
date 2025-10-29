@@ -9,13 +9,14 @@ A clean, responsive web app to help users calculate vegetable and meat costs. It
 - **Dual Calculation Modes**:
     - **Quantity by Budget**: Determine the amount of an item you can purchase with a specific budget.
     - **Cost by Quantity**: Calculate the total cost for a desired quantity of an item.
+- **Quick Select**: Instantly set the reference unit for common items (e.g., 1 kg of potatoes), so you only need to enter the current price.
 - **Flexible Units**: Supports both weight (grams, kilograms) and volume (milliliters, liters).
 - **Intuitive UI**: A modern, easy-to-use interface designed for quick calculations.
 - **Responsive Design**: Works seamlessly on both desktop and mobile devices.
 
 ## 📸 Screenshots
 
-Here's a glimpse of the Sabzi Calculator in action:
+Here's a glimpse of the Sabzi Calculator in action, featuring the helpful Quick Select unit presets:
 
 | Quantity by Budget | Cost by Quantity |
 | :---: | :---: |

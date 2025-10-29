@@ -1,12 +1,13 @@
-
 import type { CommonItem } from './types';
 
 export const COMMON_ITEMS: CommonItem[] = [
-  { name: 'Potato', price: 40 },
-  { name: 'Tomato', price: 60 },
-  { name: 'Onion', price: 50 },
-  { name: 'Carrot', price: 70 },
-  { name: 'Chicken', price: 180 },
-  { name: 'Mutton', price: 750 },
-  { name: 'Paneer', price: 400 },
+  { name: 'Potato', refQuantity: 1, refUnit: 'kg' },
+  { name: 'Tomato', refQuantity: 1, refUnit: 'kg' },
+  { name: 'Onion', refQuantity: 1, refUnit: 'kg' },
+  { name: 'Carrot', refQuantity: 1, refUnit: 'kg' },
+  { name: 'Chicken', refQuantity: 1, refUnit: 'kg' },
+  { name: 'Mutton', refQuantity: 1, refUnit: 'kg' },
+  { name: 'Paneer', refQuantity: 250, refUnit: 'g' },
+  { name: 'Sweets', refQuantity: 250, refUnit: 'g' },
+  { name: 'Milk', refQuantity: 500, refUnit: 'ml' },
 ];

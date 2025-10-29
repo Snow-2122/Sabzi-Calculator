@@ -1,6 +1,6 @@
-
-import React, { useState, useEffect } from 'react';
-import { CalculationMode, Unit } from './types';
+import React, { useState, useEffect, useRef } from 'react';
+import { CalculationMode, Unit, CommonItem } from './types';
+import { COMMON_ITEMS } from './constants';
 
 const RupeeIcon: React.FC<{ className?: string }> = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
@@ -14,6 +14,17 @@ const ShoppingBasketIcon: React.FC<{ className?: string }> = ({ className }) => 
     </svg>
 );
 
+const Tooltip: React.FC<{ text: string; children: React.ReactNode }> = ({ text, children }) => (
+  <div className="relative group">
+    {children}
+    <span className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 w-max bg-gray-900 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 shadow-lg">
+      {text}
+      <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></span>
+    </span>
+  </div>
+);
+
+
 interface InputGroupProps {
   label: string;
   id: string;
@@ -22,11 +33,20 @@ interface InputGroupProps {
   placeholder: string;
   adornment: React.ReactNode;
   error?: string | null;
+  tooltipText?: string;
 }
 
-const InputGroup: React.FC<InputGroupProps> = ({ label, id, value, onChange, placeholder, adornment, error }) => (
+const InputGroup: React.FC<InputGroupProps> = ({ label, id, value, onChange, placeholder, adornment, error, tooltipText }) => (
   <div>
-    <label htmlFor={id} className="block text-sm font-medium text-gray-400 mb-1">{label}</label>
+    <div className="flex items-center">
+        <label htmlFor={id} className="block text-sm font-medium text-gray-400 mb-1">
+            {tooltipText ? (
+                <Tooltip text={tooltipText}>
+                    <span className="border-b border-dotted border-gray-500 cursor-help">{label}</span>
+                </Tooltip>
+            ) : label}
+        </label>
+    </div>
     <div className="relative rounded-md shadow-sm">
       <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
         {adornment}
@@ -65,14 +85,14 @@ interface ReferencePriceInputProps {
       price?: string | null;
       quantity?: string | null;
   }
+  priceRef?: React.Ref<HTMLInputElement>;
 }
 
-// FIX: Removed `errors = {}` default value and used optional chaining (`?.`) to safely access error properties.
-// The `errors` prop is optional, so it can be undefined. `errors = {}` caused TypeScript to infer the type as an empty object `{}`,
-// which doesn't have `price` or `quantity` properties.
-const ReferencePriceInput: React.FC<ReferencePriceInputProps> = ({ price, onPriceChange, quantity, onQuantityChange, unit, onUnitChange, errors }) => (
+const ReferencePriceInput: React.FC<ReferencePriceInputProps> = ({ price, onPriceChange, quantity, onQuantityChange, unit, onUnitChange, errors, priceRef }) => (
     <div>
-        <label className="block text-sm font-medium text-gray-400 mb-1">Item Price</label>
+        <Tooltip text="Enter the market price for a standard amount (e.g., ₹50 for 1 kg).">
+            <label className="block text-sm font-medium text-gray-400 mb-1 border-b border-dotted border-gray-500 cursor-help w-max">Item Price</label>
+        </Tooltip>
         <div className="flex items-start space-x-2">
             <div className="relative flex-grow">
                 <div className="relative rounded-md shadow-sm">
@@ -80,6 +100,7 @@ const ReferencePriceInput: React.FC<ReferencePriceInputProps> = ({ price, onPric
                         <RupeeIcon className="w-5 h-5 text-gray-500" />
                     </div>
                     <input
+                        ref={priceRef}
                         type="number"
                         value={price}
                         onChange={onPriceChange}
@@ -142,7 +163,6 @@ const ReferencePriceInput: React.FC<ReferencePriceInputProps> = ({ price, onPric
     </div>
 );
 
-
 /**
  * Converts a value from a given unit to its base unit (grams or milliliters).
  * @param value The numeric value to convert.
@@ -181,6 +201,7 @@ const App: React.FC = () => {
   const [refUnit, setRefUnit] = useState<Unit>('g');
   const [quantity, setQuantity] = useState<string>('');
   const [quantityUnit, setQuantityUnit] = useState<Unit>('g');
+  const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const [result, setResult] = useState<{
     cost?: string;
     quantity?: {
@@ -189,6 +210,7 @@ const App: React.FC = () => {
     };
   } | null>(null);
   const [errors, setErrors] = useState<Record<string, string | null>>({});
+  const refPriceInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     // Sync quantity unit type with reference price unit type
@@ -272,6 +294,14 @@ const App: React.FC = () => {
     setErrors({});
   };
 
+  const handleCommonItemSelect = (item: CommonItem) => {
+      setRefPrice('');
+      setRefQuantity(item.refQuantity.toString());
+      setRefUnit(item.refUnit);
+      setSelectedItem(item.name);
+      refPriceInputRef.current?.focus();
+  }
+
   const resetInputs = () => {
       setBudget('');
       setRefPrice('');
@@ -279,12 +309,36 @@ const App: React.FC = () => {
       setQuantity('');
       setRefUnit('g');
       setQuantityUnit('g');
+      setSelectedItem(null);
       setResult(null);
       setErrors({});
   }
   
   const isVolume = refUnit === 'L' || refUnit === 'ml';
   const hasErrors = Object.values(errors).some(error => error !== null);
+
+  const QuickSelect = () => (
+    <div>
+        <Tooltip text="Click a common item to pre-fill its standard quantity and unit.">
+            <label className="block text-sm font-medium text-gray-400 mb-2 border-b border-dotted border-gray-500 cursor-help w-max">Quick Select</label>
+        </Tooltip>
+        <div className="flex flex-wrap gap-2">
+            {COMMON_ITEMS.map((item) => (
+                <button
+                    key={item.name}
+                    onClick={() => handleCommonItemSelect(item)}
+                    className={`px-3 py-1 text-sm font-medium rounded-full transition-all duration-200 border ${
+                        selectedItem === item.name 
+                        ? 'bg-[hsl(189,92%,58%)] text-black border-[hsl(189,92%,58%)] shadow-lg shadow-[hsl(189,92%,58%)]/20' 
+                        : 'bg-gray-800/80 text-gray-300 border-gray-700 hover:bg-gray-700/80 hover:border-gray-600'
+                    }`}
+                >
+                    {item.name}
+                </button>
+            ))}
+        </div>
+    </div>
+  );
 
   return (
     <div className="min-h-screen text-gray-300 flex flex-col items-center justify-center p-4 selection:bg-[hsl(189,92%,58%)] selection:text-black">
@@ -303,18 +357,22 @@ const App: React.FC = () => {
           <div className="space-y-6">
             <div>
               <div className="grid grid-cols-2 gap-2 rounded-lg bg-black/20 p-1">
-                <button
-                  onClick={() => handleModeChange(CalculationMode.ByBudget)}
-                  className={`w-full rounded-md py-2 text-sm font-semibold transition-colors duration-200 ${mode === CalculationMode.ByBudget ? 'bg-[hsl(189,92%,58%)] text-black shadow-lg shadow-[hsl(189,92%,58%)]/20' : 'text-gray-300 hover:bg-white/10'}`}
-                >
-                  Quantity by Budget
-                </button>
-                <button
-                  onClick={() => handleModeChange(CalculationMode.ByQuantity)}
-                  className={`w-full rounded-md py-2 text-sm font-semibold transition-colors duration-200 ${mode === CalculationMode.ByQuantity ? 'bg-[hsl(189,92%,58%)] text-black shadow-lg shadow-[hsl(189,92%,58%)]/20' : 'text-gray-300 hover:bg-white/10'}`}
-                >
-                  Cost by Quantity
-                </button>
+                <Tooltip text="Calculates how much you can buy with your money.">
+                    <button
+                      onClick={() => handleModeChange(CalculationMode.ByBudget)}
+                      className={`w-full rounded-md py-2 text-sm font-semibold transition-colors duration-200 ${mode === CalculationMode.ByBudget ? 'bg-[hsl(189,92%,58%)] text-black shadow-lg shadow-[hsl(189,92%,58%)]/20' : 'text-gray-300 hover:bg-white/10'}`}
+                    >
+                      Quantity by Budget
+                    </button>
+                </Tooltip>
+                <Tooltip text="Calculates the total cost for the amount you want.">
+                    <button
+                      onClick={() => handleModeChange(CalculationMode.ByQuantity)}
+                      className={`w-full rounded-md py-2 text-sm font-semibold transition-colors duration-200 ${mode === CalculationMode.ByQuantity ? 'bg-[hsl(189,92%,58%)] text-black shadow-lg shadow-[hsl(189,92%,58%)]/20' : 'text-gray-300 hover:bg-white/10'}`}
+                    >
+                      Cost by Quantity
+                    </button>
+                </Tooltip>
               </div>
             </div>
             
@@ -328,21 +386,26 @@ const App: React.FC = () => {
                   placeholder="e.g., 70"
                   adornment={<RupeeIcon className="w-5 h-5 text-gray-500" />}
                   error={errors.budget}
+                  tooltipText="Enter the total amount of money you want to spend."
                 />
+                <QuickSelect />
                 <ReferencePriceInput
+                  priceRef={refPriceInputRef}
                   price={refPrice}
-                  onPriceChange={(e) => setRefPrice(e.target.value)}
+                  onPriceChange={(e) => { setRefPrice(e.target.value); setSelectedItem(null); }}
                   quantity={refQuantity}
-                  onQuantityChange={(e) => setRefQuantity(e.target.value)}
+                  onQuantityChange={(e) => { setRefQuantity(e.target.value); setSelectedItem(null); }}
                   unit={refUnit}
-                  onUnitChange={(e) => setRefUnit(e.target.value as Unit)}
+                  onUnitChange={(e) => { setRefUnit(e.target.value as Unit); setSelectedItem(null); }}
                   errors={{ price: errors.refPrice, quantity: errors.refQuantity }}
                 />
               </div>
             ) : (
               <div className="space-y-4">
                 <div>
-                  <label htmlFor="quantity" className="block text-sm font-medium text-gray-400 mb-1">Desired Quantity</label>
+                  <Tooltip text="Enter the weight or volume of the item you want to buy.">
+                     <label htmlFor="quantity" className="block text-sm font-medium text-gray-400 mb-1 border-b border-dotted border-gray-500 cursor-help w-max">Desired Quantity</label>
+                  </Tooltip>
                   <div className="flex space-x-2">
                       <div className="relative flex-grow">
                           <div className="relative rounded-md shadow-sm">
@@ -407,13 +470,15 @@ const App: React.FC = () => {
                     </div>
                   </div>
                 </div>
+                <QuickSelect />
                 <ReferencePriceInput
+                  priceRef={refPriceInputRef}
                   price={refPrice}
-                  onPriceChange={(e) => setRefPrice(e.target.value)}
+                  onPriceChange={(e) => { setRefPrice(e.target.value); setSelectedItem(null); }}
                   quantity={refQuantity}
-                  onQuantityChange={(e) => setRefQuantity(e.target.value)}
+                  onQuantityChange={(e) => { setRefQuantity(e.target.value); setSelectedItem(null); }}
                   unit={refUnit}
-                  onUnitChange={(e) => setRefUnit(e.target.value as Unit)}
+                  onUnitChange={(e) => { setRefUnit(e.target.value as Unit); setSelectedItem(null); }}
                   errors={{ price: errors.refPrice, quantity: errors.refQuantity }}
                 />
               </div>
@@ -440,12 +505,14 @@ const App: React.FC = () => {
             )}
 
             <div className="pt-2">
-              <button
-                  onClick={resetInputs}
-                  className="button"
-              >
-                  Reset
-              </button>
+              <Tooltip text="Clears all fields and the current result.">
+                  <button
+                      onClick={resetInputs}
+                      className="button"
+                  >
+                      Reset
+                  </button>
+              </Tooltip>
             </div>
           </div>
         </div>
@@ -459,6 +526,13 @@ const App: React.FC = () => {
             </div>
             <hr className="line" />
             <ul className="card__list">
+                <li className="card__list_item">
+                    <span className="check"><svg className="check_svg" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path clipRule="evenodd" d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z" fillRule="evenodd"></path></svg></span>
+                    <div>
+                        <span className="list_text font-semibold">Use Quick Select</span>
+                        <p className="text-sm text-gray-400 mt-1">Click a common item to set its standard unit (e.g., kg), then just enter the current price.</p>
+                    </div>
+                </li>
                 <li className="card__list_item">
                     <span className="check"><svg className="check_svg" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path clipRule="evenodd" d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z" fillRule="evenodd"></path></svg></span>
                     <div>
