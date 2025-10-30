@@ -66,9 +66,46 @@ Follow these steps to set up a proper development environment and run the app on
 
 ## 🚀 Build and Deployment to GitHub Pages
 
-This project is configured for easy deployment to GitHub Pages. The `gh-pages` package automates the process of building the application and pushing the production-ready files to a special deployment branch.
+This project is configured for easy deployment to GitHub Pages. The `gh-pages` package automates the process.
+
+### **Important: First-Time Deployment Setup**
+
+If you have just downloaded this project and haven't pushed it to GitHub yet, you **must** initialize a Git repository and link it to a remote repository on GitHub. **This is a mandatory, one-time setup.**
+
+1.  **Create a Repository on GitHub**:
+    - Go to [github.com/new](https://github.com/new) and create a new **public** repository. Let's say you name it `Sabzi-Calculator`.
+    - **Do not** initialize it with a README, .gitignore, or license file. You need an empty repository to push your existing code into.
+
+2.  **Initialize Git in Your Project**:
+    - Open your terminal in the project's root folder.
+    - Run the following commands one by one:
+      ```bash
+      # Initializes a new Git repository
+      git init
+
+      # Adds all your project files to be tracked by Git
+      git add .
+
+      # Creates your first commit (a snapshot of your code)
+      git commit -m "Initial commit"
+      ```
+
+3.  **Link Your Local Repository to GitHub**:
+    - In your terminal, run the command below. **Replace `<your-repo-url>`** with the URL you copied from your new GitHub repository (it will look like `https://github.com/your-username/Sabzi-Calculator.git`).
+      ```bash
+      git remote add origin <your-repo-url>
+      ```
+
+4.  **Push Your Code to GitHub**:
+    - Push your `main` branch to GitHub. This uploads your project files.
+      ```bash
+      git push -u origin main
+      ```
+    - Now your local project is connected to GitHub, and the `gh-pages` script will know where to deploy your site. You can now proceed with the deployment steps below.
 
 ### Step-by-Step Deployment Guide
+
+Once your project is on GitHub, follow these steps to deploy it.
 
 1.  **Ensure `base` is correct in `vite.config.ts`**:
     - Open the `vite.config.ts` file.
@@ -80,11 +117,11 @@ This project is configured for easy deployment to GitHub Pages. The `gh-pages` p
       ```bash
       npm run deploy
       ```
-    - This command will first run `npm run build` to create a `dist` folder with the optimized production code.
-    - Then, it will push the contents of the `dist` folder to a new branch called `gh-pages` in your GitHub repository.
+    - This command will first run `npm run build` to create a `dist` folder.
+    - Then, it will push the contents of that `dist` folder to a new branch called `gh-pages` in your GitHub repository.
 
 3.  **Configure GitHub Pages Source**:
-    - **This is the most important step.** You need to tell GitHub to serve your site from the `gh-pages` branch, not the `main` branch.
+    - **This is a crucial step.** You need to tell GitHub to serve your site from the `gh-pages` branch, not your `main` branch.
     - In your GitHub repository, go to **Settings** > **Pages**.
     - Under the "Build and deployment" section, change the **Source** to **Deploy from a branch**.
     - Under "Branch", select `gh-pages` from the dropdown menu and leave the folder as `/ (root)`.
