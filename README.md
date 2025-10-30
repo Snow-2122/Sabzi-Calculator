@@ -71,7 +71,7 @@ This project is configured for easy deployment to GitHub Pages. The `gh-pages` p
 
 1.  **Ensure `base` is correct in `vite.config.ts`**:
     - Open the `vite.config.ts` file.
-    - The `base` property should be set to the name of your GitHub repository, enclosed in slashes. For example, if your repository URL is `https://github.com/your-username/sabzi-calculator`, the `base` should be `'/sabzi-calculator/'`. This is already configured correctly for this project.
+    - The `base` property **must exactly match** the name of your GitHub repository, including capitalization, and be enclosed in slashes. For example, if your repository URL is `https://github.com/your-username/Sabzi-Calculator`, the `base` must be `'/Sabzi-Calculator/'`.
 
 2.  **Run the Deployment Script**:
     - Open your terminal in the project's root directory.
@@ -91,7 +91,7 @@ This project is configured for easy deployment to GitHub Pages. The `gh-pages` p
 
 4.  **Wait and Verify**:
     - GitHub will take a minute or two to build and deploy your site from the `gh-pages` branch.
-    - Once the process is complete, your live site will be available at the URL shown on the Pages settings page (e.g., `https://your-username.github.io/sabzi-calculator/`).
+    - Once the process is complete, your live site will be available at the URL shown on the Pages settings page (e.g., `https://your-username.github.io/Sabzi-Calculator/`).
 
 By following these steps, you are deploying the compiled, static assets that browsers can understand, ensuring your app works correctly when live.
 
