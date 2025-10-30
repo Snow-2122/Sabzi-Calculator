@@ -72,11 +72,19 @@ This project is configured for easy deployment to GitHub Pages. The `gh-pages` p
 
 If you have just downloaded this project and haven't pushed it to GitHub yet, you **must** initialize a Git repository and link it to a remote repository on GitHub. **This is a mandatory, one-time setup.**
 
-1.  **Create a Repository on GitHub**:
+1.  **Configure Your Git Identity (One-Time Setup)**:
+    - Before you can make your first commit, Git needs to know who you are. If you have never used Git on this computer before, you'll need to set your name and email. **You only need to do this once per computer.**
+    - Run these two commands in your terminal, replacing the example text with your own information:
+      ```bash
+      git config --global user.name "Your Name"
+      git config --global user.email "your.email@example.com"
+      ```
+
+2.  **Create a Repository on GitHub**:
     - Go to [github.com/new](https://github.com/new) and create a new **public** repository. Let's say you name it `Sabzi-Calculator`.
     - **Do not** initialize it with a README, .gitignore, or license file. You need an empty repository to push your existing code into.
 
-2.  **Initialize Git in Your Project**:
+3.  **Initialize Git in Your Project**:
     - Open your terminal in the project's root folder.
     - Run the following commands one by one:
       ```bash
@@ -90,13 +98,13 @@ If you have just downloaded this project and haven't pushed it to GitHub yet, yo
       git commit -m "Initial commit"
       ```
 
-3.  **Link Your Local Repository to GitHub**:
+4.  **Link Your Local Repository to GitHub**:
     - In your terminal, run the command below. **Replace `<your-repo-url>`** with the URL you copied from your new GitHub repository (it will look like `https://github.com/your-username/Sabzi-Calculator.git`).
       ```bash
       git remote add origin <your-repo-url>
       ```
 
-4.  **Push Your Code to GitHub**:
+5.  **Push Your Code to GitHub**:
     - Push your `main` branch to GitHub. This uploads your project files.
       ```bash
       git push -u origin main
