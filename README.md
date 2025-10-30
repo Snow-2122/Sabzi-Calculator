@@ -31,8 +31,9 @@ Follow these steps to set up a proper development environment and run the app on
 ### Prerequisites
 
 1.  **[Node.js](https://nodejs.org/en/download/)**: You **must** have Node.js installed. Version 18 or newer is recommended. This installation also includes `npm` (Node Package Manager), which is required to manage project dependencies.
-2.  **A Code Editor**: [Visual Studio Code](https://code.visualstudio.com/download) is highly recommended.
-3.  **A Terminal**: You can use the integrated terminal in VS Code (`Ctrl+\`` or `View > Terminal`) or your system's default terminal (Command Prompt, PowerShell, or Git Bash on Windows).
+2.  **[Git](https://git-scm.com/downloads/)**: Git must be installed and accessible from your terminal. The `npm run deploy` script uses Git to push the built application to GitHub Pages.
+3.  **A Code Editor**: [Visual Studio Code](https://code.visualstudio.com/download) is highly recommended.
+4.  **A Terminal**: You can use the integrated terminal in VS Code (`Ctrl+\`` or `View > Terminal`) or your system's default terminal (Command Prompt, PowerShell, or Git Bash on Windows).
 
 ### Step-by-Step Guide
 
