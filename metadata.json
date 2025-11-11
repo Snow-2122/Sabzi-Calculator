@@ -1,5 +1,5 @@
 {
-  "name": "Sabzi Calculator",
+  "name": "Grocery Calculator",
   "description": "A clean, responsive web app to help users calculate vegetable and meat costs. It can calculate the quantity you can afford for a given budget or the total cost for a desired quantity.",
   "requestFramePermissions": []
 }

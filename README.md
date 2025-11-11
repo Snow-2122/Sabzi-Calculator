@@ -1,10 +1,10 @@
-# Sabzi Calculator
+# Grocery Calculator
 
-A clean, responsive web app to help users calculate vegetable and meat costs. It can calculate the quantity you can afford for a given budget or the total cost for a desired quantity.
+A clean, responsive web app to help users calculate grocery costs for items like vegetables, meat, and more. It can calculate the quantity you can afford for a given budget or the total cost for a desired quantity.
 
-**[🚀 View Live Demo](https://snow-2122.github.io/Sabzi-Calculator/)**
+**[🚀 View Live Demo](https://snow-2122.github.io/Grocery-Calculator/)**
 
-![Sabzi Calculator App Screenshot](https://github.com/user-attachments/assets/543cc39d-5e7a-43c9-80b3-2c1da554d3f9)
+![Grocery Calculator App Screenshot](https://github.com/user-attachments/assets/543cc39d-5e7a-43c9-80b3-2c1da554d3f9)
 
 ## ✨ Features
 
@@ -18,7 +18,7 @@ A clean, responsive web app to help users calculate vegetable and meat costs. It
 
 ## 📸 Screenshots
 
-Here's a glimpse of the Sabzi Calculator in action, featuring the helpful Quick Select unit presets:
+Here's a glimpse of the Grocery Calculator in action, featuring the helpful Quick Select unit presets:
 
 | Quantity by Budget | Cost by Quantity |
 | :---: | :---: |

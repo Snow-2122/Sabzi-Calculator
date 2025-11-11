@@ -357,7 +357,7 @@ const App: React.FC = () => {
           <div className="card_title__container">
               <div className="flex items-center justify-center space-x-3 text-2xl font-bold text-white">
                   <ShoppingBasketIcon className="w-8 h-8 text-[hsl(189,92%,58%)]"/>
-                  <h1 className="card_title">Sabzi Calculator</h1>
+                  <h1 className="card_title">Grocery Calculator</h1>
               </div>
             <p className="card_paragraph">Your smart shopping companion for fresh groceries.</p>
           </div>

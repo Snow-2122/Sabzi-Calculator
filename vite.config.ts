@@ -7,6 +7,6 @@ export default defineConfig({
   // It should match the name of your GitHub repository.
   // For example, if your repo URL is `https://github.com/user/my-app`,
   // the base should be `/my-app/`.
-  base: '/Sabzi-Calculator/',
+  base: '/Grocery-Calculator/',
   plugins: [react()],
 })
