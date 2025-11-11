@@ -2,7 +2,7 @@
 
 A clean, responsive web app to help users calculate grocery costs for items like vegetables, meat, and more. It can calculate the quantity you can afford for a given budget or the total cost for a desired quantity.
 
-![Grocery Calculator App Screenshot](https://github.com/user-attachments/assets/543cc39d-5e7a-43c9-80b3-2c1da554d3f9)
+![Grocery Calculator App Screenshot](https://github.com/user-attachments/assets/60fb5369-a6fb-4f98-85df-dd43e9761329)
 
 ## ✨ Features
 
@@ -20,7 +20,7 @@ Here's a glimpse of the Grocery Calculator in action, featuring the helpful Quic
 
 | Quantity by Budget | Cost by Quantity |
 | :---: | :---: |
-| ![Screenshot of the app calculating quantity by a set budget](https://github.com/user-attachments/assets/477a67c4-b99a-4044-a37a-c107f3d81f32) | ![Screenshot of the app calculating total cost by a set quantity](https://github.com/user-attachments/assets/b5376a17-4cbc-4559-9778-ecbd7118b756) |
+| ![Screenshot of the app calculating quantity by a set budget](https://github.com/user-attachments/assets/243928cf-0a22-477c-bee3-50e2e4016d2a) | ![Screenshot of the app calculating total cost by a set quantity](https://github.com/user-attachments/assets/35c0bc36-ac24-4f00-91bf-8a1da4f0172e) |
 
 ## 💻 How to Run Locally
 
