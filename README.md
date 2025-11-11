@@ -2,6 +2,10 @@
 
 A clean, responsive web app to help users calculate grocery costs for items like vegetables, meat, and more. It can calculate the quantity you can afford for a given budget or the total cost for a desired quantity.
 
+## 🚀 Live Demo
+
+**[Check out the live demo here!](https://snow-2122.github.io/Grocery-Calculator/)**
+
 ![Grocery Calculator App Screenshot](https://github.com/user-attachments/assets/60fb5369-a6fb-4f98-85df-dd43e9761329)
 
 ## ✨ Features
