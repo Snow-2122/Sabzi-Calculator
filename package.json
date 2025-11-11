@@ -1,10 +1,4 @@
 {
-  {
-  "homepage": "https://snow-2122.github.io/Grocery-Calculator/",
-  "name": "grocery-calculator",
-  "private": true,
-  // ... rest of the file
-}
   "name": "grocery-calculator",
   "private": true,
   "version": "0.0.0",

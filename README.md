@@ -2,8 +2,6 @@
 
 A clean, responsive web app to help users calculate grocery costs for items like vegetables, meat, and more. It can calculate the quantity you can afford for a given budget or the total cost for a desired quantity.
 
-**[🚀 View Live Demo](https://snow-2122.github.io/Grocery-Calculator/)**
-
 ![Grocery Calculator App Screenshot](https://github.com/user-attachments/assets/543cc39d-5e7a-43c9-80b3-2c1da554d3f9)
 
 ## ✨ Features
@@ -64,6 +62,40 @@ Follow these steps to set up a proper development environment and run the app.
 ### To Stop the Server
 
 - Go back to the terminal window where the server is running and press `Ctrl+C`.
+
+## 🚀 Deployment to GitHub Pages
+
+To deploy this application and create a live demo, follow these steps:
+
+1.  **Create a GitHub Repository**:
+    - Create a new public repository on GitHub named `Grocery-Calculator`.
+
+2.  **Push Your Code**:
+    - Follow the standard Git workflow to push your local project code to the `main` branch of the repository you just created.
+
+3.  **Install Dependencies**:
+    - If you haven't already, install the necessary packages by running:
+      ```bash
+      npm install
+      ```
+
+4.  **Run the Deploy Script**:
+    - The project is pre-configured with a script to handle the build and deployment process. Run the following command in your terminal:
+      ```bash
+      npm run deploy
+      ```
+    - This command will:
+        - Build the application for production into a `dist` folder.
+        - Use the `gh-pages` package to push the contents of the `dist` folder to a new branch called `gh-pages` in your repository.
+
+5.  **Configure GitHub Pages Settings**:
+    - In your GitHub repository, go to `Settings > Pages`.
+    - Under "Build and deployment", set the **Source** to "Deploy from a branch".
+    - Set the **Branch** to `gh-pages` with the folder `/(root)`.
+    - Save your changes.
+
+6.  **View Your Live Site**:
+    - After a few minutes, GitHub will publish your site. The URL will be available at the top of the Pages settings screen, following the format: `https://<YOUR_USERNAME>.github.io/Grocery-Calculator/`.
 
 ## 💻 Technology Stack
 
